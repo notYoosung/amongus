@@ -9,7 +9,7 @@ local max_text_length = 4500 -- TODO: Increase to 12800 when scroll bar was adde
 local max_title_length = 64
 
 
--- local powers = {
+-- local magic = {
 
 -- }
 
@@ -58,10 +58,10 @@ local function write(itemstack, user, pointed_thing)
         "formspec_version[4]",
         "size[14.6,9]",
 		header,
-		"background[-0.5,-0.5;9,10;z_powers_page_left.png]",
-		"background[7.5,-0.5;9,10;z_powers_page_right.png]",
-		"background[7.5,-0.5;9,10;z_powers_page_button_yes.png]",
-		"background[7.5,-0.5;9,10;z_powers_page_button_no.png]",
+		"background[-0.5,-0.5;9,10;z_magic_page_left.png]",
+		"background[7.5,-0.5;9,10;z_magic_page_right.png]",
+		"background[7.5,-0.5;9,10;z_magic_page_button_yes.png]",
+		"background[7.5,-0.5;9,10;z_magic_page_button_no.png]",
 		--"textarea[0.75,0.1;7.25,9;text;;" .. minetest.formspec_escape(text) .. "]",
 		--"button[0.75,7.95;3,1;sign;" .. minetest.formspec_escape(S("Sign")) .. "]",
 		--"button_exit[4.25,7.95;3,1;ok;" .. minetest.formspec_escape(S("Done")) .. "]",
@@ -275,19 +275,19 @@ end)
 
 minetest.register_on_joinplayer(function(player)
 	local inv = player:get_inventory()
-	inv:set_size("powers_inv", 3 * 3)
+	inv:set_size("magic_inv", 3 * 3)
 end)
 
 
 
-local powers_inv_formspec = table.concat({
+local magic_inv_formspec = table.concat({
 	"formspec_version[4]",
 	"size[11.75,10.425]",
 
-	"label[4.125,0.375;" .. F(C(mcl_formspec.label_color, S("Powers Inventory"))) .. "]",
+	"label[4.125,0.375;" .. F(C(mcl_formspec.label_color, S("Magic Inventory"))) .. "]",
 
 	mcl_formspec.get_itemslot_bg_v4(4.125, 0.75, 3, 3),
-	"list[player;powers_inv;4.125,0.75;3,3;]",
+	"list[player;magic_inv;4.125,0.75;3,3;]",
 
 	"label[0.375,4.7;" .. F(C(mcl_formspec.label_color, S("Inventory"))) .. "]",
 
@@ -301,10 +301,26 @@ local powers_inv_formspec = table.concat({
 	"listring[current_player;main]",
 })
 
+local gauntlet_use_primary = function(itemstack, placer, pointed_thing)
 
-minetest.register_craftitem(modname .. ":gauntlet", {
+	return nil
+end
+
+local gauntlet_use_secondary = function(itemstack, placer, pointed_thing)
+	if not placer:is_player() then return end
+	local placer_name = placer:get_player_name()
+	if controls.players[placer_name].sneak[1] then
+		minetest.show_formspec(placer_name, "magic:gauntlet_inv", magic_inv_formspec)
+	end
+	return nil
+end
+
+minetest.register_tool(modname .. ":gauntlet", {
 	description = "Magic Gauntlet",
-
+	inventory_image = "gauntlet_inv.png",
+	on_secondary_use = gauntlet_use_secondary,
+	on_place = gauntlet_use_secondary,
+	on_use = gauntlet_use_primary,
 })
 
 
@@ -331,8 +347,8 @@ wield_scale = wield_scale and tonumber(wield_scale) or 0.25 -- default scale
 local location = {
 	"Arm_Right",          -- default bone
 	{x=0, y=2/16, z=0},    -- default position
-	{x=-90, y=0, z=0}, -- default rotation
-	{x=5, y=5, z=0.5},
+	{x=0, y=0, z=0}, -- default rotation
+	{x=5, y=5, z=0.5}, -- visual size
 }
 
 
@@ -380,18 +396,27 @@ wield3d.location = {
 
 local magic_circle_entity = {
 	physical = false,
-	-- collisionbox = {-0.125, -0.125, -0.125, 0.125, 0.125, 0.125},
-	visual = "mesh",
+	pointable = false,
+	collide_with_objects = false,
+	collisionbox = {-0.125, -0.125, -0.125, 0.125, 0.125, 0.125},
+	-- is_visible = false,
+	visual = "cube",
 	mesh = "flat_plane.obj",
 	textures = {
 		-- {
-			name = "temp_magic_circle.png",
-			-- animation = {
-			-- 	type = "vertical_frames",
-			-- 	aspect_w = 210,
-			-- 	aspect_h = 210,
-			-- 	length = 75 * 0.06,
-			-- }
+			-- name = 
+			"temp_magic_circle.png",
+			"blank.png",
+			"blank.png",
+			"blank.png",
+			"blank.png",
+			"blank.png",
+		-- 	animation = {
+		-- 		type = "vertical_frames",
+		-- 		aspect_w = 210,
+		-- 		aspect_h = 210,
+		-- 		length = 75 * 0.06,
+		-- 	}
 		-- },
 		-- {name = "blank.png"},
 		-- {name = "blank.png"},
@@ -402,44 +427,62 @@ local magic_circle_entity = {
 	wielder = nil,
 	timer = 0,
 	static_save = false,
-	-- visual_size = {x=1, y=0, z=1},
+	visual_size = {x=10, y=0, z=10},
+	glow = 14,
+	automatic_rotate = 0.25,
 	-- wield_image = "magic_circle.png",
 	-- use_texture_alpha = true,
+	-- _pos = vector.zero(),
 }
 
--- function magic_circle_entity:on_step(dtime)
--- 	if self.wielder == nil then return end
--- 	self.timer = self.timer + dtime
--- 	if self.timer < update_time then return end
--- 	local player = minetest.get_player_by_name(self.wielder)
--- 	if player == nil or not player:is_player() or sq_dist(player:get_pos(), self.object:get_pos()) > 3 then
--- 		self.object:remove()
--- 		return
--- 	end
-	-- local wield = player_wielding[self.wielder]
+
+function magic_circle_entity:on_activate(staticdata)
+	if staticdata and staticdata ~= "" then
+		self.wielder = staticdata
+		return
+	end
+	self.object:remove()
+end
+
+--:set_attach(parent[, bone, position, rotation, forced_visible])
+
+
+function magic_circle_entity:on_step(dtime)
+	-- if self.wielder == nil then return end
+	self.timer = self.timer + (dtime * 25)
+	if self.timer > 360 then self.timer = self.timer - 360 end
+	local player = minetest.get_player_by_name(self.wielder)
+	if player == nil or not player:is_player() --[[or sq_dist(player:get_pos(), self.object:get_pos()) > 3--]] then
+		self.object:remove()
+		return
+	end
+	local wield = player_wielding[self.wielder]
 	-- local stack = player:get_wielded_item()
 	-- local item = stack:get_name() or ""
-	-- if wield and item ~= wield.item then
-	-- 	if has_wieldview then
+	if self.object and wield then
+		-- if has_wieldview then
 	-- 		local def = minetest.registered_items[item] or {}
 	-- 		if def.inventory_image ~= "" then item = "" end
 	-- 	end
 	-- 	wield.item = item
-	-- 	if item == "" then item = modname .. ":powers_magic_circle" end
+	-- 	if item == "" then item = modname .. ":magic_magic_circle" end
 	-- 	local loc = wield3d.location[item] or location
 	-- 	if loc[1] ~= wield.location[1] or not vector.equals(loc[2], wield.location[2]) or not vector.equals(loc[3], wield.location[3]) then
-	-- self.object:set_attach(player, "", location[2], location[3])
-	-- 		wield.location = {loc[1], loc[2], loc[3]}
+	-- if self.object:get_properties()._pos ~= player:get_pos() then
+	--------!	-- self.object:set_attach(player, "", location[2], vector.add(location[3], {x=0, y=(self.timer), z=0}), true)
+		-- self.object:set_properties({_pos = player:get_pos()})
+	-- end
+			-- wield.location = {loc[1], loc[2], loc[3]}
 	-- 	end
 	-- 	self.object:set_properties({
 	-- 		textures = {item},
 	-- 		visual_size = loc[4]
 	-- 	})
-	-- end
--- 	self.timer = 0
--- end
+	end
+	-- self.timer = 0
+end
 
-minetest.register_entity(modname .. ":powers_magic_circle", magic_circle_entity)
+minetest.register_entity(modname .. ":magic_magic_circle", magic_circle_entity)
 
 -- temp_magic_circle.png
 local function add_magic_circle_entity(player)
@@ -448,11 +491,11 @@ local function add_magic_circle_entity(player)
 	local pos = player:get_pos()
 	if name and pos and not player_wielding[name] then
 		pos.y = pos.y + 0.5
-		local object = minetest.add_entity(pos, modname .. ":powers_magic_circle", name)
+		local object = minetest.add_entity(pos, modname .. ":magic_magic_circle", name)
 		if object then
-			object:set_attach(player, "", location[2], location[3])
+			object:set_attach(player, "", location[2], location[3], true)
 			-- object:set_properties({
-			-- 	-- textures = {modname .. ":powers_magic_circle"},
+			-- 	-- textures = {modname .. ":magic_magic_circle"},
 			-- 	-- textures = {"magic_circle.png"},
 			-- 	textures = {
 			-- 		{
@@ -472,22 +515,23 @@ local function add_magic_circle_entity(player)
 			-- 	},
 			-- 	visual_size = location[4],
 			-- })
-			-- player_wielding[name] = {
-			-- 	item = "",
-			-- 	location = location
-			-- }
+			player_wielding[name] = {
+				item = "",
+				location = location
+			}
+			-- object:set_properties({_pos = pos})
 		end
 	end
 end
 
--- minetest.register_item(modname .. ":powers_magic_circle", {
+-- minetest.register_item(modname .. ":magic_magic_circle", {
 -- 	type = "none",
 -- 	wield_image = "magic_circle.png",
 -- 	use_texture_alpha = "clip",
 -- })
 
 minetest.register_on_joinplayer(function(ObjectRef, last_login)
-	minetest.after(2, add_magic_circle_entity, ObjectRef)
+	minetest.after(1, add_magic_circle_entity, ObjectRef)
 end)
 
 
