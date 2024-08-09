@@ -187,16 +187,16 @@ local dispenserdef = {
 						-- Spawn Egg
 					elseif igroups.spawn_egg then
 						-- Spawn mob
-						if not dropnodedef.walkable then
+						-- if not dropnodedef.walkable then
 							--pointed_thing = { above = droppos, under = { x=droppos.x, y=droppos.y-1, z=droppos.z } }
 							minetest.add_entity(droppos, stack:get_name())
 
 							--stack:take_item()
 							inv:set_stack("main", stack_id, stack)
-						end
+						-- end
 
 						-- Generalized dispension
-					elseif dropnodedef and (not dropnodedef.walkable or stackdef._dispense_into_walkable) then
+					elseif dropnodedef--[[ and (not dropnodedef.walkable or stackdef._dispense_into_walkable)]] then
 						--[[ _on_dispense(stack, pos, droppos, dropnode, dropdir)
 							* stack: Itemstack which is dispense
 							* pos: Position of dispenser

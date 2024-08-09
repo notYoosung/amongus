@@ -1,0 +1,14 @@
+{
+    "Lua.diagnostics.globals": [
+        "minetest",
+        "mcl_formspec",
+        "mcl_doors",
+        "mcl_sounds",
+        "mcl_util",
+        "vector",
+        "ItemStack",
+        "mcl_damage",
+        "mcl_inventory",
+        "awards"
+    ]
+}

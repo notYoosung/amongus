@@ -5,6 +5,7 @@ local S = minetest.get_translator(modname)
 
 dofile(modpath .. "/candles_3d/init.lua")
 dofile(modpath .. "/creative_dispenser.lua")
+dofile(modpath .. "/mlg_water_bucket.lua")
 
 local kill_cooldown = 10
 local discussion_duration = 0
@@ -972,7 +973,7 @@ local indx = #mcl_skins.simple_skins
 for i, v in pairs(color_list) do
 	mcl_skins.register_simple_skin({
 		index = indx,
-		texture = "amongus_player_full_body_" .. v .. ".png"
+		texture = "amongus_player_full_body_" .. v .. ".png^amongus_player_full_body_visor.png^"
 	})
 	indx = indx + 1
 end
