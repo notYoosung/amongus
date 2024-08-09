@@ -1,7 +1,0 @@
-{
-    "Lua.diagnostics.globals": [
-        "minetest",
-        "mcl_moon",
-        "PseudoRandom"
-    ]
-}
