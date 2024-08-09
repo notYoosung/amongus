@@ -302,7 +302,10 @@ local powers_inv_formspec = table.concat({
 })
 
 
-minetest.register_craftitem(modname .. ":powers_gauntlet", {})
+minetest.register_craftitem(modname .. ":gauntlet", {
+	description = "Magic Gauntlet",
+
+})
 
 
 
@@ -377,19 +380,19 @@ wield3d.location = {
 
 local magic_circle_entity = {
 	physical = false,
-	collisionbox = {-0.125, -0.125, -0.125, 0.125, 0.125, 0.125},
-	-- visual = "mesh",
-	model = "",
+	-- collisionbox = {-0.125, -0.125, -0.125, 0.125, 0.125, 0.125},
+	visual = "mesh",
+	mesh = "flat_plane.obj",
 	textures = {
-		{
-			name = "magic_circle",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 210,
-				aspect_h = 210,
-				length = 75 * 0.06,
-			}
-		},
+		-- {
+			name = "temp_magic_circle.png",
+			-- animation = {
+			-- 	type = "vertical_frames",
+			-- 	aspect_w = 210,
+			-- 	aspect_h = 210,
+			-- 	length = 75 * 0.06,
+			-- }
+		-- },
 		-- {name = "blank.png"},
 		-- {name = "blank.png"},
 		-- {name = "blank.png"},
@@ -399,9 +402,9 @@ local magic_circle_entity = {
 	wielder = nil,
 	timer = 0,
 	static_save = false,
-	visual_size = {x=rx, y=180, z=rz},
+	-- visual_size = {x=1, y=0, z=1},
 	-- wield_image = "magic_circle.png",
-	-- use_texture_alpha = "clip",
+	-- use_texture_alpha = true,
 }
 
 -- function magic_circle_entity:on_step(dtime)
@@ -448,27 +451,27 @@ local function add_magic_circle_entity(player)
 		local object = minetest.add_entity(pos, modname .. ":powers_magic_circle", name)
 		if object then
 			object:set_attach(player, "", location[2], location[3])
-			object:set_properties({
-				-- textures = {modname .. ":powers_magic_circle"},
-				-- textures = {"magic_circle.png"},
-				textures = {
-					{
-						name = "magic_circle",
-						animation = {
-							type = "vertical_frames",
-							aspect_w = 210,
-							aspect_h = 210,
-							length = 75 * 0.06,
-						}
-					},
-					{name = "blank.png"},
-					{name = "blank.png"},
-					{name = "blank.png"},
-					{name = "blank.png"},
-					{name = "blank.png"},
-				},
-				visual_size = location[4],
-			})
+			-- object:set_properties({
+			-- 	-- textures = {modname .. ":powers_magic_circle"},
+			-- 	-- textures = {"magic_circle.png"},
+			-- 	textures = {
+			-- 		{
+			-- 			name = "magic_circle",
+			-- 			animation = {
+			-- 				type = "vertical_frames",
+			-- 				aspect_w = 210,
+			-- 				aspect_h = 210,
+			-- 				length = 75 * 0.06,
+			-- 			}
+			-- 		},
+			-- 		{name = "blank.png"},
+			-- 		{name = "blank.png"},
+			-- 		{name = "blank.png"},
+			-- 		{name = "blank.png"},
+			-- 		{name = "blank.png"},
+			-- 	},
+			-- 	visual_size = location[4],
+			-- })
 			-- player_wielding[name] = {
 			-- 	item = "",
 			-- 	location = location

@@ -9,6 +9,21 @@
         "ItemStack",
         "mcl_damage",
         "mcl_inventory",
-        "awards"
-    ]
+        "awards",
+        "mcl_colors",
+        "mcl_vars",
+        "mcl_moon",
+        "core",
+        "mcl_weather",
+        "controls",
+        "mcl_enchanting",
+        "playerphysics",
+        "mcl_tools"
+    ],
+    "minetest-tools.workspaceOnly": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
 }
