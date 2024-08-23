@@ -18,7 +18,8 @@
         "controls",
         "mcl_enchanting",
         "playerphysics",
-        "mcl_tools"
+        "mcl_tools",
+        "mcl_mobs"
     ],
     "minetest-tools.workspaceOnly": false,
     "editor.quickSuggestions": {
