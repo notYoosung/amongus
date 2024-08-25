@@ -531,7 +531,7 @@ end
 -- })
 
 minetest.register_on_joinplayer(function(ObjectRef, last_login)
-	minetest.after(1, add_magic_circle_entity, ObjectRef)
+	-- minetest.after(1, add_magic_circle_entity, ObjectRef)
 end)
 
 

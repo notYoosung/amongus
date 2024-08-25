@@ -18,7 +18,33 @@ minetest.register_node(modname .. ":bird1", {
 	
 })
 
+minetest.register_node(modname .. ":bird1", {
+	description = "Bird 2",
+	drawtype = "mesh",
+	mesh = "bird2.obj",
+	tiles = {
+		{ name = "birds_baseColor.png" }
+	},
 
+})
+
+local rawitemstring = [[
+3d_objs/textures/skeld_textures/Caja_t01_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_t02_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_t03_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_tex_baseColor.jpeg 3d_objs/textures/skeld_textures/Formica_baseColor.jpeg 3d_objs/textures/skeld_textures/Groundco_baseColor.jpeg 3d_objs/textures/skeld_textures/medicina_baseColor.png 3d_objs/textures/skeld_textures/medicina_emissive.png 3d_objs/textures/skeld_textures/monito01_baseColor.png 3d_objs/textures/skeld_textures/monito02_baseColor.png 3d_objs/textures/skeld_textures/monitor_baseColor.png 3d_objs/textures/skeld_textures/motores_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_ad_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_ad_metallicRoughness.png 3d_objs/textures/skeld_textures/pared_al_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_al_metallicRoughness.png 3d_objs/textures/skeld_textures/pared_ca_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_es_baseColor.jpeg 3d_objs/textures/skeld_textures/paredes_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_alm_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_caf_baseColor.png 3d_objs/textures/skeld_textures/piso_cam_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_com_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_ele_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_M01_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_M02_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_MED_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_p01_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_pas_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t01_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t02_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t03_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t04_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_tex_baseColor.jpeg 3d_objs/textures/skeld_textures/reacto01_baseColor.jpeg 3d_objs/textures/skeld_textures/reactor_baseColor.jpeg 3d_objs/textures/skeld_textures/separado_baseColor.jpeg 3d_objs/textures/skeld_textures/test_med_baseColor.png 3d_objs/textures/skeld_textures/text_c01_baseColor.jpeg 3d_objs/textures/skeld_textures/text_com_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXT_NAV_baseColor.jpeg 3d_objs/textures/skeld_textures/textu_01_baseColor.jpeg 3d_objs/textures/skeld_textures/textu_pi_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXTUR01_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXTURA_baseColor.jpeg 3d_objs/textures/skeld_textures/textura_baseColor.png 3d_objs/textures/skeld_textures/Water_Da_baseColor.jpeg
+]]
+local skeld_textures = string.split(
+	string.gsub(string.gsub(rawitemstring, "3d_objs/textures/", ""), ".jpeg", ""),
+" ")
+local named_skeld_textures = {}
+for i, v in ipairs(skeld_textures) do
+	named_skeld_textures[i] = { name = v }
+end
+minetest.register_node(modname .. ":skeld", {
+	description = "Skeld",
+	drawtype = "mesh",
+	mesh = "skeld.obj",
+	tiles = named_skeld_textures,
+
+})
 
 mcl_mobs.register_mob(modname .. ":freddy", {
 	description = "Freddy",
