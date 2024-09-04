@@ -18,7 +18,7 @@ minetest.register_node(modname .. ":bird1", {
 	
 })
 
-minetest.register_node(modname .. ":bird1", {
+minetest.register_node(modname .. ":bird2", {
 	description = "Bird 2",
 	drawtype = "mesh",
 	mesh = "bird2.obj",
@@ -112,3 +112,14 @@ mcl_mobs.register_mob(modname .. ":freddy", {
 })
 
 mcl_mobs.register_egg(modname .. ":freddy", "Freddy", "#959b9b", "#275e61", 0)
+
+
+minetest.register_node(modname .. ":black_cat", {
+	description = "Black Cat",
+	drawtype = "mesh",
+	mesh = "black_cat.obj",
+	tiles = {
+		{ name = "Cat_diffuse.png" },
+		{ name = "Cat_bump.png" },
+	},
+})
