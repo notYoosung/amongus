@@ -28,8 +28,72 @@ minetest.register_node(modname .. ":bird2", {
 
 })
 
+minetest.register_node(modname .. ":bugatti", {
+	description = "Bugatti",
+	drawtype = "mesh",
+	mesh = "bugatti.obj",
+	tiles = {
+		-- { name = "birds_baseColor.png" }
+	},
+	groups = {
+		armor = 1,
+		non_combat_armor = 1,
+		armor_head = 1,
+		non_combat_armor_head = 1,
+		armor_torso = 1,
+		non_combat_armor_torso = 1,
+		armor_legs = 1,
+		non_combat_armor_legs = 1,
+		armor_feet = 1,
+		non_combat_armor_feet = 1,
+	},
+	on_secondary_use = mcl_armor.equip_on_use,
+})
+minetest.register_node(modname .. ":bugatti2015", {
+	description = "Bugatti 2015",
+	drawtype = "mesh",
+	mesh = "bugatti2015.obj",
+	tiles = {
+		{ name = "B_logo_baseColor.png" },
+		{ name = "b_logo_f_baseColor.png" },
+		{ name = "caliper_logo_baseColor.png" },
+		{ name = "camera_baseColor.png" },
+		{ name = "dash_number_baseColor.png" },
+		{ name = "decal_baseColor.png" },
+		{ name = "disc_f_baseColor.png" },
+		{ name = "engine_grid_baseColor.png" },
+		{ name = "fengxian1_baseColor.png" },
+		{ name = "luosi_baseColor.png" },
+	},
+	groups = {
+		armor = 1,
+		non_combat_armor = 1,
+		armor_head = 1,
+		non_combat_armor_head = 1,
+		-- armor_torso = 1,
+		-- non_combat_armor_torso = 1,
+		-- armor_legs = 1,
+		-- non_combat_armor_legs = 1,
+		-- armor_feet = 1,
+		-- non_combat_armor_feet = 1,
+	},
+	_mcl_armor_element = "head",
+	on_secondary_use = mcl_armor.equip_on_use,
+})
+
+minetest.register_node(modname .. ":v1plush", {
+	description = "V1 Plush",
+	drawtype = "mesh",
+	mesh = "V1Plush.obj",
+	tiles = {
+		{ name = "T_V1Plush.png" }
+	},
+
+})
+
+
 local rawitemstring = [[
-3d_objs/textures/skeld_textures/Caja_t01_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_t02_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_t03_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_tex_baseColor.jpeg 3d_objs/textures/skeld_textures/Formica_baseColor.jpeg 3d_objs/textures/skeld_textures/Groundco_baseColor.jpeg 3d_objs/textures/skeld_textures/medicina_baseColor.png 3d_objs/textures/skeld_textures/medicina_emissive.png 3d_objs/textures/skeld_textures/monito01_baseColor.png 3d_objs/textures/skeld_textures/monito02_baseColor.png 3d_objs/textures/skeld_textures/monitor_baseColor.png 3d_objs/textures/skeld_textures/motores_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_ad_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_ad_metallicRoughness.png 3d_objs/textures/skeld_textures/pared_al_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_al_metallicRoughness.png 3d_objs/textures/skeld_textures/pared_ca_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_es_baseColor.jpeg 3d_objs/textures/skeld_textures/paredes_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_alm_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_caf_baseColor.png 3d_objs/textures/skeld_textures/piso_cam_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_com_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_ele_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_M01_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_M02_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_MED_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_p01_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_pas_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t01_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t02_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t03_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t04_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_tex_baseColor.jpeg 3d_objs/textures/skeld_textures/reacto01_baseColor.jpeg 3d_objs/textures/skeld_textures/reactor_baseColor.jpeg 3d_objs/textures/skeld_textures/separado_baseColor.jpeg 3d_objs/textures/skeld_textures/test_med_baseColor.png 3d_objs/textures/skeld_textures/text_c01_baseColor.jpeg 3d_objs/textures/skeld_textures/text_com_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXT_NAV_baseColor.jpeg 3d_objs/textures/skeld_textures/textu_01_baseColor.jpeg 3d_objs/textures/skeld_textures/textu_pi_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXTUR01_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXTURA_baseColor.jpeg 3d_objs/textures/skeld_textures/textura_baseColor.png 3d_objs/textures/skeld_textures/Water_Da_baseColor.jpeg
+3d_objs/textures/skeld_textures/Caja_t01_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_t02_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_t03_baseColor.jpeg 3d_objs/textures/skeld_textures/Caja_tex_baseColor.jpeg 3d_objs/textures/skeld_textures/Formica_baseColor.jpeg 3d_objs/textures/skeld_textures/Groundco_baseColor.jpeg 3d_objs/textures/skeld_textures/medicina_baseColor 3d_objs/textures/skeld_textures/medicina_emissive 3d_objs/textures/skeld_textures/monito01_baseColor 3d_objs/textures/skeld_textures/monito02_baseColor 3d_objs/textures/skeld_textures/monitor_baseColor 3d_objs/textures/skeld_textures/motores_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_ad_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_ad_metallicRoughness 3d_objs/textures/skeld_textures/pared_al_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_al_metallicRoughness 3d_objs/textures/skeld_textures/pared_ca_baseColor.jpeg 3d_objs/textures/skeld_textures/pared_es_baseColor.jpeg 3d_objs/textures/skeld_textures/paredes_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_alm_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_caf_baseColor 3d_objs/textures/skeld_textures/piso_cam_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_com_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_ele_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_M01_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_M02_baseColor.jpeg 3d_objs/textures/skeld_textures/PISO_MED_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_p01_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_pas_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t01_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t02_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t03_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_t04_baseColor.jpeg 3d_objs/textures/skeld_textures/piso_tex_baseColor.jpeg 3d_objs/textures/skeld_textures/reacto01_baseColor.jpeg 3d_objs/textures/skeld_textures/reactor_baseColor.jpeg 3d_objs/textures/skeld_textures/separado_baseColor.jpeg 3d_objs/textures/skeld_textures/test_med_baseColor 3d_objs/textures/skeld_textures/text_c01_baseColor.jpeg 3d_objs/textures/skeld_textures/text_com_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXT_NAV_baseColor.jpeg 3d_objs/textures/skeld_textures/textu_01_baseColor.jpeg 3d_objs/textures/skeld_textures/textu_pi_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXTUR01_baseColor.jpeg 3d_objs/textures/skeld_textures/TEXTURA_baseColor.jpeg 3d_objs/textures/skeld_textures/textura_baseColor 3d_objs/textures/skeld_textures/Water_Da_baseColor.jpeg
 ]]
 local skeld_textures = string.split(
 	string.gsub(string.gsub(rawitemstring, "3d_objs/textures/", ""), ".jpeg", ""),
@@ -123,3 +187,6 @@ minetest.register_node(modname .. ":black_cat", {
 		{ name = "Cat_bump.png" },
 	},
 })
+
+
+-- link image signs
