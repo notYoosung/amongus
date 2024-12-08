@@ -104,26 +104,26 @@ local cow_def = {
 	fear_height = 4,
 }
 
-mcl_mobs.register_mob("mobs_mc:cow", cow_def)
+-- mcl_mobs.register_mob("mobs_mc:cow", cow_def)
 
 -- Mooshroom
 
-mcl_mobs.register_mob("mobs_mc:mooshroom", table.merge(cow_def, {
+mcl_mobs.register_mob("mobs_mc:moobloom", table.merge(cow_def, {
 	description = S("Mooshroom"),
 	spawn_in_group_min = 4,
 	spawn_in_group = 8,
-	textures = { { "mobs_mc_mooshroom.png", "mobs_mc_mushroom_red.png" }, { "mobs_mc_mooshroom_brown.png", "mobs_mc_mushroom_brown.png" } },
+	textures = { { "mobs_mc_moobloom.png", "mobs_mc_mushroom_red.png" }, { "mobs_mc_moobloom_brown.png", "mobs_mc_mushroom_brown.png" } },
 	on_rightclick = function(self, clicker)
 		if self:feed_tame(clicker, 1, true, false) then return end
 		if self.child then return end
 
 		local item = clicker:get_wielded_item()
-		-- Use shears to get mushrooms and turn mooshroom into cow
+		-- Use shears to get mushrooms and turn moobloom into cow
 		if minetest.get_item_group(item:get_name(), "shears") > 0 then
 			local pos = self.object:get_pos()
 			minetest.sound_play("mcl_tools_shears_cut", { pos = pos }, true)
 
-			if self.base_texture[1] == "mobs_mc_mooshroom_brown.png" then
+			if self.base_texture[1] == "mobs_mc_moobloom_brown.png" then
 				minetest.add_item({ x = pos.x, y = pos.y + 1.4, z = pos.z }, "mcl_mushrooms:mushroom_brown 5")
 			else
 				minetest.add_item({ x = pos.x, y = pos.y + 1.4, z = pos.z }, "mcl_mushrooms:mushroom_red 5")
@@ -164,10 +164,10 @@ mcl_mobs.register_mob("mobs_mc:mooshroom", table.merge(cow_def, {
 	end,
 
 	on_lightning_strike = function(self)
-		if self.base_texture[1] == "mobs_mc_mooshroom_brown.png" then
-			self.base_texture = { "mobs_mc_mooshroom.png", "mobs_mc_mushroom_red.png" }
+		if self.base_texture[1] == "mobs_mc_moobloom_brown.png" then
+			self.base_texture = { "mobs_mc_moobloom.png", "mobs_mc_mushroom_red.png" }
 		else
-			self.base_texture = { "mobs_mc_mooshroom_brown.png", "mobs_mc_mushroom_brown.png" }
+			self.base_texture = { "mobs_mc_moobloom_brown.png", "mobs_mc_mushroom_brown.png" }
 		end
 		self.object:set_properties({ textures = self.base_texture })
 		return true
@@ -175,7 +175,7 @@ mcl_mobs.register_mob("mobs_mc:mooshroom", table.merge(cow_def, {
 	_on_dispense = function(self, dropitem, pos, droppos, dropnode, dropdir)
 		if minetest.get_item_group(dropitem:get_name(), "shears") > 0 then
 			local droppos = vector.offset(pos, 0, 1.4, 0)
-			if self.base_texture[1] == "mobs_mc_mooshroom_brown.png" then
+			if self.base_texture[1] == "mobs_mc_moobloom_brown.png" then
 				minetest.add_item(droppos, "mcl_mushrooms:mushroom_brown 5")
 			else
 				minetest.add_item(droppos, "mcl_mushrooms:mushroom_red 5")
@@ -187,6 +187,7 @@ mcl_mobs.register_mob("mobs_mc:mooshroom", table.merge(cow_def, {
 	end,
 }))
 
+--[[
 mcl_mobs.spawn_setup({
 	name = "mobs_mc:cow",
 	type_of_spawning = "ground",
@@ -229,9 +230,10 @@ mcl_mobs.spawn_setup({
 	},
 	chance = 80,
 })
+]]
 
 mcl_mobs.spawn_setup({
-	name = "mobs_mc:mooshroom",
+	name = "mobs_mc:moobloom",
 	type_of_spawning = "ground",
 	dimension = "overworld",
 	aoc = 9,
@@ -244,5 +246,5 @@ mcl_mobs.spawn_setup({
 })
 
 -- spawn egg
-mcl_mobs.register_egg("mobs_mc:cow", S("Cow"), "#443626", "#a1a1a1", 0)
-mcl_mobs.register_egg("mobs_mc:mooshroom", S("Mooshroom"), "#a00f10", "#b7b7b7", 0)
+mcl_mobs.register_egg("mobs_mc:moobloom", S("Mooshroom"), "#a00f10", "#b7b7b7", 0)
+minetest.registered_items["mobs_mc:moobloom"].inventory_texture = "blank.png^[png:iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAABAAAAAQE4IvRAAAABU0lEQVQ4Ec2SvU7DMBSFT5ImlAJV+FEpRQjRn4GhMMIAKy/B1LEjT9KRsSMbWyXUN2AlYoKCVBYWUBC0VKqK4djYchrExMCVYju+99z7+drAv7brM4jLU4jfIJ2fnA9RS2T8LIJ+U7ofn4C1/TaWthqpeHc6AcUrhU2Ei6sID7vSXVwG8mEBz/ftFE1mOgEr04L8PD6cKhZCFeFkfdxcNNSPNSaQeOZaBfDqXSl2e2VMBir6NVbzbQ/Ya8LoUgQMm0RH8OaUgLModZAbxRhGx2rTGk0PdHX6JEHlToaRQMxuG0n1i9C+GUPALnvFdVmdZ7fxxVUZnkmRXBiCwVsMMRpLrxY7O4qCm7oHud3zRAbTDO4SjYjsvFvryMDx99m18H34kngPhsBOq6tRbJsfzICktiUI6NANIoltvL7SQQsb9ZOUxo4zaybiq+SnkxrnXy4+AdIXdFtVg5h7AAAAAElFTkSuQmCC"
